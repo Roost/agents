@@ -105,13 +105,19 @@ top-level flags, but do not impose a new structure on an established CLI without
 - Never commit directly to `main` or `master` unless explicitly instructed.
 - Never force-push, destructively reset, delete branches, discard changes, or rewrite
   history unless explicitly instructed.
-- Do not run live production writes merely because a command is available. Preview or dry
-  run first where supported, and require explicit authorization for the exact live action.
+- Never ask the user for permission to run a live production write. If approval or elevated
+  access is needed, request it only for a dry run, preview, or read-only operation.
+- Run a live production write only when the user has already explicitly requested that exact
+  action. An approval dialog, a request to complete the general task, or the availability of
+  an `--apply`, `--live`, `--send`, `--deploy`, or similar flag is not authorisation.
+- Without explicit prior authorisation for the exact live action, stop after the preview or
+  dry run and provide the command for the user to execute themselves.
 
 Before committing:
 
 1. Review the diff and repository status.
-2. Remove accidental or unrelated changes from the commit scope without discarding them.
+2. Stage only explicit task-related paths. Do not use `git add .`; it can capture unrelated
+   or newly generated files.
 3. Run appropriate checks where practical.
 4. Confirm secrets, credentials, local environment files, and generated junk are excluded.
 
