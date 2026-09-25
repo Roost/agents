@@ -98,11 +98,13 @@ top-level flags, but do not impose a new structure on an established CLI without
 
 ## Git safety
 
+- Never create a commit unless the user explicitly asks for a commit.
+- Never push commits or branches unless the user explicitly asks for a push.
+- Authorisation to commit does not imply authorisation to push, and authorisation to push
+  does not imply authorisation to create additional commits.
 - Never commit directly to `main` or `master` unless explicitly instructed.
 - Never force-push, destructively reset, delete branches, discard changes, or rewrite
   history unless explicitly instructed.
-- Do not create a commit merely because files changed; commit only when the task or existing
-  workflow calls for it.
 - Do not run live production writes merely because a command is available. Preview or dry
   run first where supported, and require explicit authorization for the exact live action.
 
