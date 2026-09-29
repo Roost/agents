@@ -82,8 +82,17 @@ When creating or modifying a CLI:
 
 - follow the project's established command structure and naming;
 - provide accurate, useful root and command-specific `--help` output;
+- keep command, subcommand, and option listings alphabetical within each help section unless
+  a more useful established order is documented;
 - use predictable commands and subcommands, with descriptive long flags and sensible short
   aliases where useful;
+- keep root help focused on top-level commands and namespaces; do not flatten every nested
+  command into the root command list;
+- when a namespace or command group is invoked without a child command, show that group's
+  help, including its available child commands and common usage examples, instead of silently
+  returning or failing only with a missing-command error;
+- make every level discoverable: root help should lead to namespace help, and namespace help
+  should lead to command-specific help;
 - return non-zero exit codes on failure and write errors to stderr where appropriate;
 - give actionable error messages;
 - support non-interactive use when practical and avoid unnecessary prompts;
@@ -95,6 +104,10 @@ When creating or modifying a CLI:
 
 Prefer coherent subcommand or namespace groupings over an ever-growing set of unrelated
 top-level flags, but do not impose a new structure on an established CLI without good reason.
+For new command families, place related operations under a clear namespace rather than
+dumping all commands at the root. Add or update CLI tests to verify root help, namespace help,
+command-specific help, alphabetical ordering, and invocation of a namespace without a child
+command.
 
 ## Git safety
 
